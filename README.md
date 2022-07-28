@@ -3,7 +3,7 @@ CRACKER LOG-IN COOKIE
 
 ## Cara Update
 ```php
-git clone https://github.com/ChangJr7/GUCCI
+git clone https://github.com/ChangzFB/GUCCI
 rm -rf GUCCI
 cd
 cd GUCCI
